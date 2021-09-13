@@ -3,28 +3,35 @@ import styled from "styled-components";
 export const NavBar= styled.ul`
     list-style-type: none;
     margin: 0;
-    padding: 0;
+    padding: ${(props) => props.theme.spacing(1)} 0;
     overflow: hidden;
-    background-color: #333;
-
+    background-color: ${(props) => props.theme.primary.main};
+    width:100%;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    max-height: 5vh;
+    
 `;
 
 export const NavItem= styled.li`
-    float: left;
+    display: inline;
 `;
 
+
+
 export const NavLink = styled.a`
-    display: block;
-    color: white;
+    color: ${(props) => props.theme.primary.textColor};
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    font-size:1.25em;
 
     :hover {
-        background-color: #4fc3f7;
+        background-color: ${(props) => props.theme.primary.light};
     }
 
     .active {
-        background-color: #04aa6d
+        background-color: ${(props) => props.theme.primary.dark};
     }
 `;
