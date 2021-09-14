@@ -6,7 +6,7 @@ export const Header = styled.header`
 
 export const Main=styled.main`
     min-height: 95vh;
-    padding: ${(props) => props.theme.spacing(1)};
+    padding: ${(props) => props.theme.spacing(2)};
     dispaly: flex;
     align-item: center;
     flex-direction: column:
