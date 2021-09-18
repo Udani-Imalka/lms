@@ -1,4 +1,4 @@
-import React,{ Suspense } from "react";
+import React, { Suspense } from "react";
 import { ThemeProvider } from "styled-components";
 import { BsBookHalf } from "react-icons/bs";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -9,11 +9,11 @@ import Spinner from "./components/Spinner";
 
 import { DASHBOARD, CATALOG } from "./shared/routes";
 
-const Dashboard = React.lazy(()=> {
+const Dashboard = React.lazy(() => {
   return import("./containers/Dashboard");
 });
 
-const NotFound = React.lazy(()=> {
+const NotFound = React.lazy(() => {
   return import("./containers/404");
 });
 
@@ -33,13 +33,13 @@ function App() {
   };
 
   let routes = (
-    <Suspense fallback={<Spinner/>}>
-    <Switch>
-      <Route exact path={DASHBOARD} component={Dashboard} />
-      <Route exact path={CATALOG} component={Spinner} />
-      <Route exact path="/" component={Dashboard} />
-      <Route component= {NotFound} />
-    </Switch>
+    <Suspense fallback={<Spinner />}>
+      <Switch>
+        <Route exact path={DASHBOARD} component={Dashboard} />
+        <Route exact path={CATALOG} component={Spinner} />
+        <Route exact path="/" component={Dashboard} />
+        <Route component={NotFound} />
+      </Switch>
     </Suspense>
   );
 
@@ -47,16 +47,16 @@ function App() {
     <ThemeProvider theme={theme}>
       <Header>
         <NavBar>
-          <NavItem >
+          <NavItem>
             <NavLink href={CATALOG}>
               <BsBookHalf />
             </NavLink>
           </NavItem>
-          <NavItem >
+          <NavItem>
             <NavLink href={CATALOG}>Catalog</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink  href={DASHBOARD}>Dashboard</NavLink>
+            <NavLink href={DASHBOARD}>Dashboard</NavLink>
           </NavItem>
         </NavBar>
       </Header>
