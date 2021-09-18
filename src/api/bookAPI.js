@@ -1,4 +1,4 @@
-import { getRequest} from "./util";
+import { getRequest } from "./util";
 
 const BASE_URL = "/book";
 

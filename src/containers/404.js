@@ -18,11 +18,13 @@ const Subtitle = styled.h6`
 `;
 
 const NotFound = () => {
-  <FluidContainer>
-    <Title>404!</Title>
-    <br />
-    <Subtitle>The page you are looking for doesn't exist.</Subtitle>
-  </FluidContainer>
+  return (
+    <FluidContainer>
+      <Title>404!</Title>
+      <br />
+      <Subtitle>The page you are looking for doesn't exist.</Subtitle>
+    </FluidContainer>
+  );
 };
 
 export default NotFound;
