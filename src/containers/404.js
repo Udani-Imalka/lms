@@ -1,11 +1,5 @@
 import styled from "styled-components";
 
-const FluidContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
 
 const Title = styled.h1`
   font-size: 7.5em;
