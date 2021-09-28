@@ -7,11 +7,11 @@ import {
   Container,
   ContainerInline,
   FlexRow,
-} from "../../components/CommonComponents";
-import Spinner from "../../components/Spinner";
+} from "../../../components/CommonComponents";
+import Spinner from "../../../components/Spinner";
 
-import { getBook } from "../../api/bookAPI";
-import BookCoverPlaceholder from "../../shared/book-cover-placeholder.png";
+import { getBook } from "../../../api/bookAPI";
+import BookCoverPlaceholder from "../../../shared/book-cover-placeholder.png";
 
 const ContainerInlineTextAlignLeft = styled(ContainerInline)`
   align-items: flex-start;
@@ -56,10 +56,7 @@ const Book = ({ id, handleBackClick }) => {
             <ContainerInlineTextAlignLeft>
               <H1>{book.title}</H1>
               <H2>{`by ${book.author}`}</H2>
-              <p>
-                Leran ipsum dolor sit amet,fghjjkajkjksjdbchdh bd bjdk ndn kdn
-                njdj dbh vdhdb jdbcjdjchdcdcjscnscjjsbcjsbcbsbc
-              </p>
+              <p>Leran ipsum dolor sit amet,fghjjkajkjksjdbchdh bd bjdk ndn kdn njdj dbh vdhdb</p>
               {book.isAvailable ? (
                 ""
               ) : (
