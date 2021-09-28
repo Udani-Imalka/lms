@@ -9,16 +9,14 @@ const Books = ({ catalog }) => {
   const [selectedBookId, setSelectedBookId] = useState(null);
 
   const handleTableRowClick = (id) => {
-    console.log(id);
     setSelectedBookId(id);
   };
 
   const handleBookViewBackClick = () => {
     setSelectedBookId(null);
-  }
+  };
 
-  return (
-    selectedBookId === null ? 
+  return selectedBookId === null ? (
     <FluidContainer>
       <Table
         data={catalog}
@@ -26,7 +24,7 @@ const Books = ({ catalog }) => {
         instruction="Click row the view"
       />
     </FluidContainer>
-   : 
+  ) : (
     <Book id={selectedBookId} handleBackClick={handleBookViewBackClick} />
   );
 };

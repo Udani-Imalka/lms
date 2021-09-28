@@ -47,7 +47,7 @@ const Book = ({ id, handleBackClick }) => {
 
   return (
     <Container>
-      <Button onClick={handleBackClick}>
+      <Button onClick={handleBackClick} size={1.5}>
         <IoReturnUpBack />
       </Button>
       {!isLoading && book !== null ? (
@@ -56,7 +56,10 @@ const Book = ({ id, handleBackClick }) => {
             <ContainerInlineTextAlignLeft>
               <H1>{book.title}</H1>
               <H2>{`by ${book.author}`}</H2>
-              <p>Leran ipsum dolor sit amet,</p>
+              <p>
+                Leran ipsum dolor sit amet,fghjjkajkjksjdbchdh bd bjdk ndn kdn
+                njdj dbh vdhdb jdbcjdjchdcdcjscnscjjsbcjsbcbsbc
+              </p>
               {book.isAvailable ? (
                 ""
               ) : (

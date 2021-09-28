@@ -37,7 +37,7 @@ export const Button = styled.button`
   background-color: ${(props) =>
     props.danger ? props.theme.primary.danger : props.theme.primary.main};
   color: ${(props) => props.theme.primary.textColor};
-  font-size: 1em;
+  font-size: ${(props) => (props.size ? props.size : 1)}em;
   padding: 0.25em 1em;
   border: 0;
   border-radius: 0.5em;
