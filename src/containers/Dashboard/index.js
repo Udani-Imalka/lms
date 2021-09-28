@@ -9,14 +9,13 @@ import { getBooks } from "../../api/bookAPI";
 
 const Dashboard = () => {
   const [isLoading, setIslaoding] = useState(false);
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState(null);
 
   useEffect(() => {
     setIslaoding(true);
     getBooks()
       .then((response) => {
         if (!response.error) {
-          console.log(response.data);
           setBooks(response.data);
         }
       })
@@ -33,11 +32,7 @@ const Dashboard = () => {
     { title: "Members", elements: <h1>Contents of memebers go here</h1> },
   ];
 
-  return isLoading ? (
-    <Spinner />
-  ) : (
-    books.length > 0 && <Tabs contents={contents} />
-  );
+  return isLoading ? <Spinner /> : <Tabs contents={contents} />;
 };
 
 export default Dashboard;
