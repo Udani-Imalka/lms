@@ -24,6 +24,8 @@ function App() {
       light: "#73e8ff",
       dark: "#0086c3",
       textColor: "#000",
+      danger: "#e91e63",
+      dangerDark: "#b0003a",
     },
     secondary: {
       main: "#fff",
