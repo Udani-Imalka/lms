@@ -52,7 +52,7 @@ export const Content = styled.div`
 
 export default function Tabs(props) {
   const { contents } = props;
-
+  const { active,setActive } = useState(0);
 
 
   const handleClick = (event) => {
