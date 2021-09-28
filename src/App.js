@@ -10,13 +10,14 @@ import Spinner from "./components/Spinner";
 import { DASHBOARD, CATALOG } from "./shared/routes";
 
 const Dashboard = React.lazy(() => {
-
+  return import("./containers/Dashboard");
+});
 
 const NotFound = React.lazy(() => {
   return import("./containers/404");
 });
 
-function App() {
+function App () {
   const theme = {
     primary: {
       main: "#29b6f6",
@@ -67,6 +68,8 @@ function App() {
       <Footer>Copyright {new Date().getFullYear()} © Spark Academy </Footer>
     </ThemeProvider>
   );
-}
+};
+
+
 
 export default App;
