@@ -53,7 +53,7 @@ export const Content = styled.div`
 export default function Tabs(props) {
   const { contents } = props;
 
-  const [active, setActive] = useState("");
+
 
   const handleClick = (event) => {
     const index = parseInt(event.target.id, 0);
