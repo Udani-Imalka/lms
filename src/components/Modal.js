@@ -16,10 +16,10 @@ export const DialogBox = styled.div`
   background: antiquewhite;
   width: 33%;
   height: auto;
-  top: "50%";
-  left: "50%";
-  transform: "50%";
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   border-radius: 10px;
-  padding: 075rem;
+  padding: 0.75rem;
   color: rgba(0, 0, 139, 0.7);
 `;
