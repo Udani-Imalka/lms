@@ -5,7 +5,8 @@ export const TabsContainer = styled.div`
   overflow: hidden;
   background: #fff;
   height: 100%;
-  width: 100%;
+  max-width: 80%;
+  min-width: 80%;
 `;
 
 const TabButtonContainer = styled.div`
@@ -52,8 +53,7 @@ export const Content = styled.div`
 
 export default function Tabs(props) {
   const { contents } = props;
-
-
+  const [active, setActive] = useState(0);
 
   const handleClick = (event) => {
     const index = parseInt(event.target.id, 0);
