@@ -14,7 +14,7 @@ export default function ConfirmationDialog({
                 <h2>{headerText}</h2>
                 <p>{detailText}</p>
                 <FlexRow>
-                    <Button onClick={sendYes}>Yes</Button>
+                    <Button onClick={sendYes} color="danger">Yes</Button>
                     <Button onClick={sendNo}>No</Button>
                 </FlexRow>
             </DialogBox>

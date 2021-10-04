@@ -93,7 +93,7 @@ const Book = ({ id, handleBackClick }) => {
                   <Button onClick={() => console.log("Call lead API")}>
                     Lead
                   </Button>
-                  <Button danger onClick={() => setShowDeleteConfirmation(true)}>
+                  <Button color="danger" onClick={() => setShowDeleteConfirmation(true)}>
                     Delete
                   </Button>
                 </>

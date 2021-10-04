@@ -17,7 +17,7 @@ const NotFound = React.lazy(() => {
   return import("./containers/404");
 });
 
-function App () {
+function App() {
   const theme = {
     primary: {
       main: "#29b6f6",
@@ -28,7 +28,10 @@ function App () {
       dangerDark: "#b0003a",
     },
     secondary: {
-      main: "#fff",
+      main: "#9e9e9e",
+      light: "#cfcfcf",
+      dark: "#707070",
+      textColor: "#000",
     },
 
     spacing: (factor) => `${factor * 8}px`,
@@ -68,8 +71,6 @@ function App () {
       <Footer>Copyright {new Date().getFullYear()} © Spark Academy </Footer>
     </ThemeProvider>
   );
-};
-
-
+}
 
 export default App;
