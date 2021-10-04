@@ -24,9 +24,14 @@ function App() {
       light: "#73e8ff",
       dark: "#0086c3",
       textColor: "#000",
+      danger: "#e91e63",
+      dangerDark: "#b0003a",
     },
     secondary: {
-      main: "#fff",
+      main: "#9e9e9e",
+      light: "#cfcfcf",
+      dark: "#707070",
+      textColor: "#000",
     },
 
     spacing: (factor) => `${factor * 8}px`,
