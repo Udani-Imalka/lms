@@ -12,7 +12,7 @@ import Spinner from "../../../components/Spinner";
 import ConfirmationDialog from "../../../components/ConfirmationDialog";
 import LeadDialog from "./LeadDialog";
 
-import { getBook, lendBook } from "../../../api/bookAPI";
+import { getBook, lendBook, returnBook } from "../../../api/bookAPI";
 import BookCoverPlaceholder from "../../../shared/book-cover-placeholder.png";
 import { getTodaysDate } from "../../../shared/utils";
 
@@ -33,6 +33,7 @@ const Book = ({ id, handleBackClick }) => {
   const [book, setBook] = useState(null);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [showLeadConfirmation, setShowLeadConfirmation] = useState(false);
+  const [showReturnConfirmation, setShowReturnConfirmation] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -62,6 +63,13 @@ const Book = ({ id, handleBackClick }) => {
       lendBook(book.id, memberId, getTodaysDate());
     }
     setShowLeadConfirmation(false);
+  };
+
+  const handleReturn = (confirmed) => {
+    if (confirmed) {
+      returnBook(book.id);
+    }
+    setShowReturnConfirmation(false);
   };
 
   return (
@@ -114,7 +122,7 @@ const Book = ({ id, handleBackClick }) => {
                 <>
                   <h4>{`Burrowed by: ${book.borrowedMemberId}`}</h4>
                   <h4>{`Burrowed date: ${book.borrowedDate}`}</h4>
-                  <Button onClick={() => console.log("Call return API")}>
+                  <Button onClick={() => setShowReturnConfirmation(true)}>
                     Return
                   </Button>
                 </>
@@ -132,6 +140,12 @@ const Book = ({ id, handleBackClick }) => {
         detailText="Are you sure want to delete this book? This action can't be undone."
       />
       <LeadDialog show={showLeadConfirmation} handleClose={handleLead} />
+      <ConfirmationDialog
+        handleClose={handleReturn}
+        show={showReturnConfirmation}
+        headerText="Confirm book return"
+        detailText="Press 'Confirm' to return book"
+      />
     </>
   );
 };
