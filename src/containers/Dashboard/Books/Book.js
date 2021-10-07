@@ -12,8 +12,9 @@ import Spinner from "../../../components/Spinner";
 import ConfirmationDialog from "../../../components/ConfirmationDialog";
 import LeadDialog from "./LeadDialog";
 
-import { getBook } from "../../../api/bookAPI";
+import { getBook, lendBook } from "../../../api/bookAPI";
 import BookCoverPlaceholder from "../../../shared/book-cover-placeholder.png";
+import { getTodaysDate } from "../../../shared/utils";
 
 const ContainerInlineTextAlignLeft = styled(ContainerInline)`
   align-items: flex-start;
@@ -33,13 +34,6 @@ const Book = ({ id, handleBackClick }) => {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [showLeadConfirmation, setShowLeadConfirmation] = useState(false);
 
-  const handleDelete = (confirmation) => {
-    if (confirmation) {
-      console.log("Delete confirmed");
-    }
-    setShowDeleteConfirmation(false);
-  };
-
   useEffect(() => {
     setIsLoading(true);
     getBook(id)
@@ -56,9 +50,16 @@ const Book = ({ id, handleBackClick }) => {
       });
   }, [id]);
 
-  const handleLead = (confirmed, member) => {
-    if (confirmed){
-      console.log("Book lended to ",member);
+  const handleDelete = (confirmation) => {
+    if (confirmation) {
+      console.log("Delete confirmed");
+    }
+    setShowDeleteConfirmation(false);
+  };
+
+  const handleLead = (confirmed, memberId) => {
+    if (confirmed) {
+      lendBook(book.id, memberId, getTodaysDate());
     }
     setShowLeadConfirmation(false);
   };
@@ -102,7 +103,10 @@ const Book = ({ id, handleBackClick }) => {
                   <Button onClick={() => setShowLeadConfirmation(true)}>
                     Lead
                   </Button>
-                  <Button color="danger" onClick={() => setShowDeleteConfirmation(true)}>
+                  <Button
+                    color="danger"
+                    onClick={() => setShowDeleteConfirmation(true)}
+                  >
                     Delete
                   </Button>
                 </>
