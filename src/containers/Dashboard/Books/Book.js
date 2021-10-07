@@ -92,8 +92,9 @@ const Book = ({ id, handleBackClick }) => {
                   ""
                 ) : (
                   <>
-                    <h4>{`Burrowed by: ${book.borrowedMemberId}`}</h4>
-                    <h4>{`Burrowed date: ${book.borrowedDate}`}</h4>
+                  {(console.log(book))}
+                    <h4>{`Borrowed by: ${book.burrowedMemberId}`}</h4>
+                    <h4>{`Borrowed date: ${book.burrowedDate}`}</h4>
                   </>
                 )}
               </ContainerInlineTextAlignLeft>
@@ -119,13 +120,9 @@ const Book = ({ id, handleBackClick }) => {
                   </Button>
                 </>
               ) : (
-                <>
-                  <h4>{`Burrowed by: ${book.borrowedMemberId}`}</h4>
-                  <h4>{`Burrowed date: ${book.borrowedDate}`}</h4>
-                  <Button onClick={() => setShowReturnConfirmation(true)}>
-                    Return
-                  </Button>
-                </>
+                <Button onClick={() => setShowReturnConfirmation(true)}>
+                  Return
+                </Button>
               )}
             </FlexRow>
           </>
