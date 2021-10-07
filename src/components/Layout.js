@@ -8,7 +8,7 @@ export const Main = styled.main`
     min-height: 95vh;
     padding: ${(props) => props.theme.spacing(2)};
     dispaly: flex;
-    align-item: center;
+    align-items: center;
     flex-direction: column:
 `;
 
