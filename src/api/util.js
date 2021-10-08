@@ -48,3 +48,19 @@ export const deleteRequest = async (uri, data) => {
     };
   }
 }
+
+export const postRequest = async (uri, data) => {
+  try {
+    let response = await axios.post(uri, data);
+
+    return {
+      data: response.data,
+      error: null
+    };
+  } catch (error) {
+    return {
+      data: null,
+      error: error
+    };
+  }
+}
