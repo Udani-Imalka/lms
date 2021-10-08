@@ -78,8 +78,8 @@ const Table = ({ data, handleRowClick, instruction }) =>
     <TableMarkup
       titles={Object.keys(data[0])}
       data={data}
-      handleClick={handleRowClick}
-      caption={instruction}
+      handleClick={handleRowClick ? handleRowClick : () => {}}
+      caption={instruction ? instruction: ""}
     />
   ) : (
     "No data to populate"

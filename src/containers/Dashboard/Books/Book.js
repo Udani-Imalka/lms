@@ -10,9 +10,16 @@ import {
 } from "../../../components/CommonComponents";
 import Spinner from "../../../components/Spinner";
 import ConfirmationDialog from "../../../components/ConfirmationDialog";
+import LeadDialog from "./LeadDialog";
 
-import { getBook } from "../../../api/bookAPI";
+import {
+  getBook,
+  lendBook,
+  returnBook,
+  deleteBook,
+} from "../../../api/bookAPI";
 import BookCoverPlaceholder from "../../../shared/book-cover-placeholder.png";
+import { getTodaysDate } from "../../../shared/utils";
 
 const ContainerInlineTextAlignLeft = styled(ContainerInline)`
   align-items: flex-start;
@@ -30,13 +37,8 @@ const Book = ({ id, handleBackClick }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [book, setBook] = useState(null);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-
-  const handleDelete = (confirmation) => {
-    if (confirmation) {
-      console.log("Delete confirmed");
-    }
-    setShowDeleteConfirmation(false);
-  };
+  const [showLeadConfirmation, setShowLeadConfirmation] = useState(false);
+  const [showReturnConfirmation, setShowReturnConfirmation] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -53,6 +55,27 @@ const Book = ({ id, handleBackClick }) => {
         setIsLoading(false);
       });
   }, [id]);
+
+  const handleDelete = (confirmation) => {
+    if (confirmation) {
+      deleteBook(book.id);
+    }
+    setShowDeleteConfirmation(false);
+  };
+
+  const handleLead = (confirmed, memberId) => {
+    if (confirmed) {
+      lendBook(book.id, memberId, getTodaysDate());
+    }
+    setShowLeadConfirmation(false);
+  };
+
+  const handleReturn = (confirmed) => {
+    if (confirmed) {
+      returnBook(book.id);
+    }
+    setShowReturnConfirmation(false);
+  };
 
   return (
     <>
@@ -74,8 +97,8 @@ const Book = ({ id, handleBackClick }) => {
                   ""
                 ) : (
                   <>
-                    <h4>{`Burrowed by: ${book.borrowedMemberId}`}</h4>
-                    <h4>{`Burrowed date: ${book.borrowedDate}`}</h4>
+                    <h4>{`Borrowed by: ${book.burrowedMemberId}`}</h4>
+                    <h4>{`Borrowed date: ${book.burrowedDate}`}</h4>
                   </>
                 )}
               </ContainerInlineTextAlignLeft>
@@ -90,21 +113,20 @@ const Book = ({ id, handleBackClick }) => {
             <FlexRow>
               {book.isAvailable ? (
                 <>
-                  <Button onClick={() => console.log("Call lead API")}>
+                  <Button onClick={() => setShowLeadConfirmation(true)}>
                     Lead
                   </Button>
-                  <Button color="danger" onClick={() => setShowDeleteConfirmation(true)}>
+                  <Button
+                    color="danger"
+                    onClick={() => setShowDeleteConfirmation(true)}
+                  >
                     Delete
                   </Button>
                 </>
               ) : (
-                <>
-                  <h4>{`Burrowed by: ${book.borrowedMemberId}`}</h4>
-                  <h4>{`Burrowed date: ${book.borrowedDate}`}</h4>
-                  <Button onClick={() => console.log("Call return API")}>
-                    Return
-                  </Button>
-                </>
+                <Button onClick={() => setShowReturnConfirmation(true)}>
+                  Return
+                </Button>
               )}
             </FlexRow>
           </>
@@ -117,6 +139,13 @@ const Book = ({ id, handleBackClick }) => {
         show={showDeleteConfirmation}
         headerText="Confirm book deletion"
         detailText="Are you sure want to delete this book? This action can't be undone."
+      />
+      <LeadDialog show={showLeadConfirmation} handleClose={handleLead} />
+      <ConfirmationDialog
+        handleClose={handleReturn}
+        show={showReturnConfirmation}
+        headerText="Confirm book return"
+        detailText="Press 'Yes'to  confirm return book"
       />
     </>
   );

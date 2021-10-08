@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const NavBar= styled.ul`
-    list-style-type: none;
+    list-style: none;
     margin: 0;
     padding: ${(props) => props.theme.spacing(1)} 0;
     overflow: hidden;
