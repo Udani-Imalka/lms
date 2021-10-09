@@ -9,14 +9,13 @@ import { getBooks } from "../../api/bookAPI";
 
 export const Dashboard = () => {
   const [isLoading, setIslaoding] = useState(false);
-  const [book,setBook] = useState([]);
+  const [book, setBook] = useState([]);
 
   useEffect(() => {
     setIslaoding(true);
     getBooks()
       .then((response) => {
         if (!response.error) {
-
           setBook(response.data);
         }
       })
