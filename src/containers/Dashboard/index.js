@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import Tabs from "../../components/Tabs";
 import Spinner from "../../components/Spinner";
 
-import Books from "./Books/index";
 
 import { getBooks } from "../../api/bookAPI";
 
 const Dashboard = () => {
   const [isLoading, setIslaoding] = useState(false);
-  const [books, setBooks] = useState(null);
+
 
   useEffect(() => {
     setIslaoding(true);
     getBooks()
       .then((response) => {
         if (!response.error) {
-          setBooks(response.data);
+
         }
       })
       .catch((error) => {
@@ -25,10 +25,11 @@ const Dashboard = () => {
       .finally(() => {
         setIslaoding(false);
       });
-  }, []);
+  }, [dispatch]);
 
   const contents = [
     { title: "Books", elements: <Books catalog={books} /> },
+
     { title: "Members", elements: <h1>Contents of memebers go here</h1> },
   ];
 

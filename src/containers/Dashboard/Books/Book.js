@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { IoReturnUpBack } from "react-icons/io5";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   Button,
@@ -12,14 +13,13 @@ import Spinner from "../../../components/Spinner";
 import ConfirmationDialog from "../../../components/ConfirmationDialog";
 import LeadDialog from "./LeadDialog";
 
-import {
-  getBook,
-  lendBook,
-  returnBook,
-  deleteBook,
-} from "../../../api/bookAPI";
+import { lendBook, returnBook, deleteBook } from "../../../api/bookAPI";
 import BookCoverPlaceholder from "../../../shared/book-cover-placeholder.png";
 import { getTodaysDate } from "../../../shared/utils";
+import {
+  updateBook,
+  deleteBook as deleteBookStore,
+} from "../../../store/booksSlice";
 
 const ContainerInlineTextAlignLeft = styled(ContainerInline)`
   align-items: flex-start;
@@ -35,44 +35,67 @@ const H2 = styled.h2`
 
 const Book = ({ id, handleBackClick }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [book, setBook] = useState(null);
+
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [showLeadConfirmation, setShowLeadConfirmation] = useState(false);
   const [showReturnConfirmation, setShowReturnConfirmation] = useState(false);
 
-  useEffect(() => {
-    setIsLoading(true);
-    getBook(id)
-      .then((response) => {
-        if (!response.error) {
-          setBook(response.data);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [id]);
+  const books = useSelector((state) => state.books.value);
+  const book = books.find((element) => element.id === id);
+
+  const dispatch = useDispatch();
 
   const handleDelete = (confirmation) => {
     if (confirmation) {
-      deleteBook(book.id);
+      setIsLoading(true);
+      deleteBook(book.id)
+        .then((response) => {
+          if (!response.error) {
+            dispatch(deleteBookStore(response.data));
+            handleBackClick();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
     setShowDeleteConfirmation(false);
   };
 
   const handleLead = (confirmed, memberId) => {
     if (confirmed) {
-      lendBook(book.id, memberId, getTodaysDate());
+      setIsLoading(true);
+      lendBook(book.id, memberId, getTodaysDate())
+        .then((response) => {
+          if (!response.error) {
+            dispatch(updateBook(response.data));
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
     setShowLeadConfirmation(false);
   };
 
   const handleReturn = (confirmed) => {
     if (confirmed) {
-      returnBook(book.id);
+      setIsLoading(true);
+      returnBook(book.id)
+        .then((response) => {
+          if (!response.error) {
+            dispatch(updateBook(response.data));
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
     setShowReturnConfirmation(false);
   };
