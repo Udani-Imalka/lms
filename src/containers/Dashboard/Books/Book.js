@@ -21,7 +21,11 @@ import {
 } from "../../../api/bookAPI";
 import BookCoverPlaceholder from "../../../shared/book-cover-placeholder.png";
 import { getTodaysDate } from "../../../shared/utils";
-import { updateBook } from "../../../store/booksSlice";
+import {
+  updateBook,
+  deleteBook as deleteBookStore,
+ } from "../../../store/booksSlice";
+
 
 const ContainerInlineTextAlignLeft = styled(ContainerInline)`
   align-items: flex-start;
@@ -42,7 +46,7 @@ const Book = ({ id, handleBackClick }) => {
   const [showLeadConfirmation, setShowLeadConfirmation] = useState(false);
   const [showReturnConfirmation, setShowReturnConfirmation] = useState(false);
 
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setIsLoading(true);
@@ -62,34 +66,60 @@ const dispatch = useDispatch();
 
   const handleDelete = (confirmation) => {
     if (confirmation) {
-      deleteBook(book.id);
+      setIsLoading(true);
+      deleteBook(book.id)
+        .then((response) => {
+          if (!response.error) {
+            console.log(response.data);
+            dispatch(deleteBookStore(response.data));
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
     setShowDeleteConfirmation(false);
   };
 
   const handleLead = (confirmed, memberId) => {
     if (confirmed) {
-      setIsLoading(true)
+      setIsLoading(true);
       lendBook(book.id, memberId, getTodaysDate())
-      .then((response)=>{
-        if(!response.error){
-          console.log(response.data);
-          dispatch(updateBook(response.data));
-        }
-      })
-      .catch((error)=> {
-        console.log(error);
-      })
-      .finally(() =>{
-        setIsLoading(false);
-      });
+        .then((response) => {
+          if (!response.error) {
+            console.log(response.data);
+            dispatch(updateBook(response.data));
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
     setShowLeadConfirmation(false);
   };
 
   const handleReturn = (confirmed) => {
     if (confirmed) {
-      returnBook(book.id);
+      setIsLoading(true);
+      returnBook(book.id)
+        .then((response) => {
+          if (!response.error) {
+            console.log(response.data);
+            dispatch(updateBook(response.data));
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
     setShowReturnConfirmation(false);
   };
@@ -167,5 +197,6 @@ const dispatch = useDispatch();
     </>
   );
 };
+
 
 export default Book;
