@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { IoReturnUpBack } from "react-icons/io5";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   Button,
@@ -13,12 +13,7 @@ import Spinner from "../../../components/Spinner";
 import ConfirmationDialog from "../../../components/ConfirmationDialog";
 import LeadDialog from "./LeadDialog";
 
-import {
-  getBook,
-  lendBook,
-  returnBook,
-  deleteBook,
-} from "../../../api/bookAPI";
+import { lendBook, returnBook, deleteBook } from "../../../api/bookAPI";
 import BookCoverPlaceholder from "../../../shared/book-cover-placeholder.png";
 import { getTodaysDate } from "../../../shared/utils";
 import {
@@ -40,28 +35,15 @@ const H2 = styled.h2`
 
 const Book = ({ id, handleBackClick }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [book, setBook] = useState(null);
+
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [showLeadConfirmation, setShowLeadConfirmation] = useState(false);
   const [showReturnConfirmation, setShowReturnConfirmation] = useState(false);
 
-  const dispatch = useDispatch();
+  const books = useSelector((state) => state.books.value);
+  const book = books.find((element) => element.id === id);
 
-  useEffect(() => {
-    setIsLoading(true);
-    getBook(id)
-      .then((response) => {
-        if (!response.error) {
-          setBook(response.data);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [id]);
+  const dispatch = useDispatch();
 
   const handleDelete = (confirmation) => {
     if (confirmation) {
@@ -70,6 +52,7 @@ const Book = ({ id, handleBackClick }) => {
         .then((response) => {
           if (!response.error) {
             dispatch(deleteBookStore(response.data));
+            handleBackClick();
           }
         })
         .catch((error) => {
