@@ -24,8 +24,7 @@ import { getTodaysDate } from "../../../shared/utils";
 import {
   updateBook,
   deleteBook as deleteBookStore,
- } from "../../../store/booksSlice";
-
+} from "../../../store/booksSlice";
 
 const ContainerInlineTextAlignLeft = styled(ContainerInline)`
   align-items: flex-start;
@@ -70,7 +69,6 @@ const Book = ({ id, handleBackClick }) => {
       deleteBook(book.id)
         .then((response) => {
           if (!response.error) {
-            console.log(response.data);
             dispatch(deleteBookStore(response.data));
           }
         })
@@ -90,7 +88,6 @@ const Book = ({ id, handleBackClick }) => {
       lendBook(book.id, memberId, getTodaysDate())
         .then((response) => {
           if (!response.error) {
-            console.log(response.data);
             dispatch(updateBook(response.data));
           }
         })
@@ -110,7 +107,6 @@ const Book = ({ id, handleBackClick }) => {
       returnBook(book.id)
         .then((response) => {
           if (!response.error) {
-            console.log(response.data);
             dispatch(updateBook(response.data));
           }
         })
@@ -197,6 +193,5 @@ const Book = ({ id, handleBackClick }) => {
     </>
   );
 };
-
 
 export default Book;
