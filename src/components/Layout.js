@@ -7,9 +7,9 @@ export const Header = styled.header`
 export const Main = styled.main`
     min-height: 95vh;
     padding: ${(props) => props.theme.spacing(2)};
-    dispaly: flex;
+    display: flex;
     align-items: center;
-    flex-direction: column:
+    flex-direction: column;
 `;
 
 export const Footer = styled.footer`
