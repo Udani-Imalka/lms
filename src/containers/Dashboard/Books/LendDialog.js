@@ -6,7 +6,7 @@ import Spinner from "../../../components/Spinner";
 
 import { getMembers } from "../../../api/memberAPI";
 
-export default function LeadDialog({handleClose, show}){
+export default function LendDialog({handleClose, show}){
     const [member, setMember] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [members, setMembers] = useState(null);
@@ -30,7 +30,7 @@ export default function LeadDialog({handleClose, show}){
     return(
         <Modal show={show}>
         <DialogBox>
-            <h2>Lead book</h2>
+            <h2>Lend book</h2>
             <p>Select member to continue and confirm</p>
             {!isLoading  && members !== null ? (
             <>

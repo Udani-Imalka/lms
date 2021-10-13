@@ -11,7 +11,7 @@ import {
 } from "../../../components/CommonComponents";
 import Spinner from "../../../components/Spinner";
 import ConfirmationDialog from "../../../components/ConfirmationDialog";
-import LeadDialog from "./LeadDialog";
+import LendDialog from "./LendDialog";
 import AddEditBookDialog from "./AddEditBookDialog";
 
 import { lendBook, returnBook, deleteBook, editBook } from "../../../api/bookAPI";
@@ -38,7 +38,7 @@ const Book = ({ id, handleBackClick }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-  const [showLeadConfirmation, setShowLeadConfirmation] = useState(false);
+  const [showLendConfirmation, setShowLendConfirmation] = useState(false);
   const [showReturnConfirmation, setShowReturnConfirmation] = useState(false);
   const [showEditBookDialog, setShowEditBookDialog] = useState(false);
 
@@ -64,7 +64,7 @@ const Book = ({ id, handleBackClick }) => {
     setShowDeleteConfirmation(false);
   };
 
-  const handleLead = (confirmed, memberId) => {
+  const handleLend = (confirmed, memberId) => {
     if (confirmed) {
       setIsLoading(true);
       lendBook(book.id, memberId, getTodaysDate())
@@ -80,7 +80,7 @@ const Book = ({ id, handleBackClick }) => {
           setIsLoading(false);
         });
     }
-    setShowLeadConfirmation(false);
+    setShowLendConfirmation(false);
   };
 
   const handleReturn = (confirmed) => {
@@ -157,8 +157,8 @@ const Book = ({ id, handleBackClick }) => {
             <FlexRow>
               {book.isAvailable ? (
                 <>
-                  <Button onClick={() => setShowLeadConfirmation(true)}>
-                    Lead
+                  <Button onClick={() => setShowLendConfirmation(true)}>
+                    Lend
                   </Button>
                   <Button
                     onClick={() => 
@@ -190,7 +190,7 @@ const Book = ({ id, handleBackClick }) => {
         headerText="Confirm book deletion"
         detailText="Are you sure want to delete this book? This action can't be undone."
       />
-      <LeadDialog show={showLeadConfirmation} handleClose={handleLead} />
+      <LendDialog show={showLendConfirmation} handleClose={handleLend} />
       <ConfirmationDialog
         handleClose={handleReturn}
         show={showReturnConfirmation}
