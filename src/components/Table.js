@@ -29,15 +29,12 @@ const StyledTable = styled.table`
   }
   tr > th {
     cursor: pointer;
-  
   }
   caption {
     font-size: 0.9em;
-    padding:  ${(props) => props.theme.spacing(1)};
+    padding: ${(props) => props.theme.spacing(1)};
     font-weight: bold;
   }
-
-
 `;
 
 const TableMarkup = ({ titles, data, handleClick, caption }) => (
@@ -78,8 +75,8 @@ const Table = ({ data, handleRowClick, instruction }) =>
     <TableMarkup
       titles={Object.keys(data[0])}
       data={data}
-      handleClick={handleRowClick}
-      caption={instruction}
+      handleClick={handleRowClick ? handleRowClick : () => {}}
+      caption={instruction ? instruction : ""}
     />
   ) : (
     "No data to populate"
