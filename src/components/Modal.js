@@ -20,6 +20,7 @@ export const DialogBox = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 10px;
-  padding: 0.75rem;
+  padding: 0.505rem;
   color: rgba(0, 0, 139, 0.7);
+  margin-top: 30px;
 `;
