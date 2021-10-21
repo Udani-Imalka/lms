@@ -28,10 +28,12 @@ const ContainerInlineTextAlignLeft = styled(ContainerInline)`
 
 const H1 = styled.h1`
   text-align: left;
+  
 `;
 
 const H2 = styled.h2`
   text-align: left;
+  color:brown;
 `;
 
 const Book = ({ id, handleBackClick }) => {
@@ -43,7 +45,11 @@ const Book = ({ id, handleBackClick }) => {
   const [showEditBookDialog, setShowEditBookDialog] = useState(false);
 
   const books = useSelector((state) => state.books.value);
+  const members = useSelector((state) => state.members.value);
   const book = books.find((element) => element.id === id);
+  const member = book
+      ? members.find((element) => element.id === book.burrowedMemberId)
+      : null;
 
   const dispatch = useDispatch();
 
@@ -134,14 +140,13 @@ const Book = ({ id, handleBackClick }) => {
                 <H1>{book.title}</H1>
                 <H2>{`by ${book.author}`}</H2>
                 <p>
-                  Leran ipsum dolor sit amet,fghjjkajkjksjdbchdh bd bjdk ndn kdn
-                  njdj dbh vdhdb
+                Harry, Ron, and Hermione assemble the books and tools necessary to embark on the quest that Dumbledore left them: to find and destroy the Horcruxes into which Voldemort placed fragments of his soul, making himself immortal as long as the objects survive.
                 </p>
                 {book.isAvailable ? (
                   ""
                 ) : (
                   <>
-                    <h4>{`Borrowed by: ${book.burrowedMemberId}`}</h4>
+                    <h4>{`Borrowed by: ${member.name}`}</h4>
                     <h4>{`Borrowed date: ${book.burrowedDate}`}</h4>
                   </>
                 )}
@@ -150,7 +155,7 @@ const Book = ({ id, handleBackClick }) => {
                 <img
                   src={BookCoverPlaceholder}
                   alt="Book Cover Placeholder"
-                  style={{ border: "1px solid black" }}
+                  style={{ width: "70%"}}
                 />
               </ContainerInline>
             </FlexRow>
