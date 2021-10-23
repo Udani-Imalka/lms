@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Main, Footer, Header } from "./components/Layout";
 import { NavBar, NavItem, NavLink } from "./components/Navbar";
 import Spinner from "./components/Spinner";
+import BasicCard from "./components/BasicCard";
 
 import { DASHBOARD, CATALOG } from "./shared/routes";
 
@@ -41,7 +42,7 @@ function App() {
     <Suspense fallback={<Spinner />}>
       <Switch>
         <Route exact path={DASHBOARD} component={Dashboard} />
-        <Route exact path={CATALOG} component={Spinner} />
+        <Route exact path={CATALOG} component={BasicCard} />
         <Route exact path="/" component={Dashboard} />
         <Route component={NotFound} />
       </Switch>

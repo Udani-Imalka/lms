@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Tabs from "../../components/Tabs";
 import Spinner from "../../components/Spinner";
 
+
 import Books from "../Dashboard/Books/index";
 import Members from "../Dashboard/Members/index";
 
@@ -56,7 +57,9 @@ const Dashboard = () => {
     { title: "Members", elements: <Members catalog={members}/> },
   ];
 
-  return isLoading ? <Spinner /> : <Tabs contents={contents} />;
+  
+
+   return isLoading ? <Spinner /> : <Tabs contents={contents} />;
 };
 
 export default Dashboard;
