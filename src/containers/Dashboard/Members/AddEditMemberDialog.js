@@ -8,6 +8,7 @@ import {
 import { Modal, DialogBox } from "../../../components/Modal";
 
 import Input from "../../../components/input";
+import Selector from "../../../components/Selector";
 
 export default function AddEditMemberDialog({
   isEdit = false,
@@ -15,8 +16,11 @@ export default function AddEditMemberDialog({
   show,
   data,
 }) {
-  const [name, setName] = useState(
-    isEdit && data && data.name ? data.name : ""
+  const [firstName, setFirstName] = useState(
+    isEdit && data && data.firstName ? data.firstName : ""
+  );
+  const [lastName, setLastName] = useState(
+    isEdit && data && data.lastName ? data.lastName : ""
   );
   const [nic, setNic] = useState(isEdit && data && data.nic ? data.nic : "");
   const [address, setAddress] = useState(
@@ -25,27 +29,52 @@ export default function AddEditMemberDialog({
   const [contactNumber, setContactNumber] = useState(
     isEdit && data && data.contactNumber ? data.contactNumber : ""
   );
+  const [userType, setUserType] = useState(
+    isEdit && data && data.userType ? data.userType : ""
+  );
 
   const clearInputs = () => {
-    setName("");
+    setFirstName("");
+    setLastName("");
     setNic("");
     setAddress("");
     setContactNumber("");
+    setUserType("");
   };
   const sendDone = () => {
-    if (name !== "" && nic !== "" && address !== "" && contactNumber !== "") {
-      const data = { name, nic, address, contactNumber };
+    if (
+      firstName !== "" &&
+      lastName !== "" &&
+      nic !== "" &&
+      address !== "" &&
+      contactNumber !== "" &&
+      userType !== ""
+    ) {
+      const data = {
+        firstName,
+        lastName,
+        nic,
+        address,
+        contactNumber,
+        userType,
+      };
       clearInputs();
       handleClose(true, data);
-    } else if (name === "") {
-      window.alert(`Please enter a name to ${isEdit ? "edit" : "add"}.`);
+    } else if (firstName === "") {
+      window.alert(`Please enter a firstName to ${isEdit ? "edit" : "add"}.`);
+    } else if (lastName === "") {
+      window.alert(`Please enter a lastName to ${isEdit ? "edit" : "add"}.`);
     } else if (nic === "") {
       window.alert(`Please enter a nic to ${isEdit ? "edit" : "add"}.`);
     } else if (address === "") {
       window.alert(`Please enter a address to ${isEdit ? "edit" : "add"}.`);
+    } else if (contactNumber === "") {
+      window.alert(
+        `Please enter a contactNumber to ${isEdit ? "edit" : "add"}.`
+      );
     } else {
       window.alert(
-        `Please enter the contact number of the member to ${
+        `Please enter the user Type of the member to ${
           isEdit ? "edit" : "add"
         }.`
       );
@@ -64,12 +93,22 @@ export default function AddEditMemberDialog({
         <p>Enter the below details of the Member</p>
         <Container alignItems="center" disableFullWidth>
           <Input
-            lable="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            lable="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
             type="text"
-            id="name"
-            name="name"
+            id="firstName"
+            name="firstName"
+            required
+            minLength="1"
+          />
+          <Input
+            lable="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            type="text"
+            id="lastName"
+            name="lastName"
             required
             minLength="1"
           />
@@ -102,6 +141,13 @@ export default function AddEditMemberDialog({
             name="contactNumber"
             required
             minLength="1"
+          />
+          <Selector
+            lable={"User Type"}
+            value={userType}
+            onChange={(e) => setUserType(e.target.value)}
+            id="userType"
+            name="userType"
           />
         </Container>
         <FlexRow>

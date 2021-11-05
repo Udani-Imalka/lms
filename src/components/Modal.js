@@ -9,6 +9,7 @@ export const Modal = styled.div`
   height: 100vh;
   width: 100vw;
   background: rgba(0, 0, 0, 0.5);
+  
 `;
 
 export const DialogBox = styled.div`

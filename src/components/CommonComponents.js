@@ -13,7 +13,7 @@ export const Container = styled.div`
   justify-content: ${(props) => props.justifyContent ? props.justifyContent : "center"};
   align-items: ${(props) => props.alignItems ? props.alignItems : "flex-start"};
   width: ${(props) => props.disableFullWidth ? "initial": "100%"};
-  padding: 1em;
+  padding: 1mm;
 `;
 
 export const ContainerInline = styled.div`

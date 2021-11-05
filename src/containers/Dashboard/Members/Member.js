@@ -95,10 +95,16 @@ const Member = ({ id, handleBackClick }) => {
                 <div class="card">
                   <dl>
                     <dt>
-                      <b>NAME -:</b>
+                      <b>FIRST NAME -:</b>
                     </dt>
                     <DD>
-                      <b>{member.name}</b>
+                      <b>{member.firstName}</b>
+                    </DD>
+                    <dt>
+                      <b>LAST NAME -:</b>
+                    </dt>
+                    <DD>
+                      <b>{member.lastName}</b>
                     </DD>
                     <dt>
                       <b>NIC -:</b>
@@ -112,6 +118,10 @@ const Member = ({ id, handleBackClick }) => {
                       <b>TELE NO. -:</b>
                     </dt>
                     <DD>{member.contactNumber}</DD>
+                    <dt>
+                      <b>USER TYPE -:</b>
+                    </dt>
+                    <DD>{member.userType}</DD>
                   </dl>
                 </div>
               </ContainerInlineTextAlignLeft>
