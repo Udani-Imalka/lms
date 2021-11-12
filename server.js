@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const Book = require("./models/book");
+const Member = require("./models/member");
 
 const server = express();
 
@@ -28,24 +29,6 @@ mongoose
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
-let books = [
-  {
-    id: "1",
-    title: "Harry Porter",
-    author: "J.K.Rowling",
-    isAvailable: true,
-    burrowMemberId: "",
-    burrowDate: "",
-  },
-  {
-    id: "2",
-    title: "Charlie and the Chocolate Factory",
-    author: "Roald Dahl",
-    isAvailable: true,
-    burrowMemberId: "",
-    burrowDate: "",
-  },
-];
 
 //book:View all books
 server.get("/book", async (req, res) => {
@@ -58,8 +41,7 @@ server.get("/book", async (req, res) => {
 //book/:id
 server.get("/book/:id", async (req, res) => {
   const id = req.params.id;
-  // const book = books.find((book) => book.id === id);
-  // res.send(book);
+
   const book = await Book.findById(id);
   res.send(book);
 });
@@ -68,17 +50,6 @@ server.get("/book/:id", async (req, res) => {
 //author,title
 server.post("/book", async (req, res) => {
   const { title, author } = req.body;
-
-  // const book = {
-  //   id: Math.random().toString(16).slice(2),
-  //   title,
-  //   author,
-  //   isAvailable: true,
-  //   burrowMemberId: "",
-  //   burrowDate: "",
-  // };
-  // books.push(book);
-  // res.send(book);
 
   const book = new Book({ title, author });
   const response = await book.save();
@@ -90,14 +61,6 @@ server.post("/book", async (req, res) => {
 server.put("/book/:id", async (req, res) => {
   const id = req.params.id;
   const { title, author } = req.body;
-
-  // const bookIndex = books.findIndex((book) => book.id === id);
-  // books[bookIndex] = {
-  //   ...books[bookIndex],
-  //   title,
-  //   author,
-  // };
-  //  res.send(books[bookIndex]);
 
   const book = await Book.findByIdAndUpdate(id, {
     title,
@@ -113,15 +76,6 @@ server.put("/book/:id/burrow", async (req, res) => {
   const id = req.params.id;
   const { burrowMemberId, burrowDate } = req.body;
 
-  // const bookIndex = books.findIndex((book) => book.id === id);
-  // books[bookIndex] = {
-  //   ...books[bookIndex],
-  //   isAvailable: false,
-  //   burrowMemberId,
-  //   burrowDate,
-  // };
-
-  // res.send(books[bookIndex]);
   const book = await Book.findByIdAndUpdate(id, {
     isAvailable: false,
     burrowMemberId,
@@ -136,16 +90,6 @@ server.put("/book/:id/burrow", async (req, res) => {
 server.put("/book/:id/return", async (req, res) => {
   const id = req.params.id;
 
-  // const bookIndex = books.findIndex((book) => book.id === id);
-  // books[bookIndex] = {
-  //   ...books[bookIndex],
-  //   isAvailable: true,
-  //   burrowMemberId: "",
-  //   burrowDate: "",
-  // };
-
-  // res.send(books[bookIndex]);
-
   const book = await Book.findByIdAndUpdate(id, {
     isAvailable: true,
     burrowMemberId: "",
@@ -157,7 +101,7 @@ server.put("/book/:id/return", async (req, res) => {
 // /book/:id/delete : Delete book
 // /book/1
 
-server.delete("/book/:id",  async(req, res) => {
+server.delete("/book/:id", async (req, res) => {
   const id = req.params.id;
 
   // books = books.filter((book) => book.id !== id);
@@ -165,4 +109,59 @@ server.delete("/book/:id",  async(req, res) => {
 
   const book = await Book.findByIdAndDelete(id);
   res.send(book);
+});
+
+//  *****************   Member details    ********************
+
+server.get("/member", async (req, res) => {
+  const members = await Member.find();
+  res.send(members);
+});
+
+server.get("/member/:id", async (req, res) => {
+  const id = req.params.id;
+  // const member = members.find((member) => member.id === id);
+  const member = await Member.findById(id);
+  res.send(member);
+});
+
+server.post("/member", async (req, res) => {
+  const { firstName, lastName, nic, address, contactNumber, userType } =
+    req.body;
+
+  const member = new Member({
+    firstName,
+    lastName,
+    nic,
+    address,
+    contactNumber,
+    userType,
+  });
+
+  const response = await member.save();
+  res.send(member);
+});
+
+server.put("/member/:id", async (req, res) => {
+  const id = req.params.id;
+  const { firstName, lastName, nic, address, contactNumber, userType } =
+    req.body;
+
+  const member = await Member.findByIdAndUpdate(id, {
+    firstName,
+    lastName,
+    nic,
+    address,
+    contactNumber,
+    userType,
+  });
+  res.send(member);
+});
+
+server.delete("/member/:id", async (req, res) => {
+  const id = req.params.id;
+  // const member = members.findIndex((member) => member.id === id);
+  const member = await Member.findByIdAndDelete(id);
+  //Member.splice(member, 1);
+  res.send(member);
 });
