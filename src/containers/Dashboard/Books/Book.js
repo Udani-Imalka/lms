@@ -146,7 +146,7 @@ const Book = ({ id, handleBackClick }) => {
                   ""
                 ) : (
                   <>
-                    <h4>{`Borrowed by: ${member.name}`}</h4>
+                    <h4>{`Borrowed by: ${member.firstName}  ${member.lastName}`}</h4>
                     <h4>{`Borrowed date: ${book.burrowedDate}`}</h4>
                   </>
                 )}
