@@ -48,7 +48,7 @@ const Book = ({ id, handleBackClick }) => {
   const members = useSelector((state) => state.members.value);
   const book = books.find((element) => element.id === id);
   const member = book
-      ? members.find((element) => element.id === book.burrowedMemberId)
+      ? members.find((element) => element.id === book.burrowMemberId)
       : null;
 
   const dispatch = useDispatch();
@@ -147,7 +147,7 @@ const Book = ({ id, handleBackClick }) => {
                 ) : (
                   <>
                     <h4>{`Borrowed by: ${member.firstName}  ${member.lastName}`}</h4>
-                    <h4>{`Borrowed date: ${book.burrowedDate}`}</h4>
+                    <h4>{`Borrowed date: ${book.burrowDate}`}</h4>
                   </>
                 )}
               </ContainerInlineTextAlignLeft>
